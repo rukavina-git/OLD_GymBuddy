@@ -12,14 +12,18 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.rukavina.gymbuddy.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_progress"
+        android:name="com.rukavina.progress.ProgressFragment"
+        android:label="@string/title_progress" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.rukavina.gymbuddy.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_workout"
+        android:name="com.rukavina.workout.WorkoutFragment"
+        android:label="@string/title_workout" />
+
+    <fragment
+        android:id="@+id/navigation_exercise"
+        android:name="com.rukavina.exercise.ExerciseFragment"
+        android:label="@string/title_exercise" />
+
 </navigation>

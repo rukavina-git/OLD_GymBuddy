@@ -8,17 +8,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GymBuddy">
-        <activity
-            android:name=".ProgressActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.GymBuddy">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
