@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    //Dominant color used for headers, primary buttons, and other important UI elements.
+    <color name="primary">#001F3F</color>
+    //Color to highlight interactive elements, links, and important information.
+    <color name="light_blue">#3498DB</color>
+    //Neutral color can be used for backgrounds and areas that are not the focus of user attention.
+    <color name="light_gray">#F0F0F0</color>
+    //A dark gray text color will provide good readability against lighter backgrounds.
+    <color name="dark_gray">#333333</color>
+    //Green to indicate successful actions or achievements.
+    <color name="green">#27AE60</color>
+    //This color can be used to draw attention to important messages or warnings.
+    <color name="orange">#E67E22</color>
+    //Teal can be used for secondary elements like less important buttons or dividers.
+    <color name="teal">#1ABC9C</color>
 </resources>
