@@ -34,25 +34,5 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        navView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home -> {
-                    window.statusBarColor = getColor(R.color.primary)
-                }
-                R.id.navigation_progress -> {
-                    window.statusBarColor = getColor(R.color.primary)
-                }
-                R.id.navigation_workout -> {
-                    window.statusBarColor = getColor(R.color.primary)
-                }
-                R.id.navigation_exercise -> {
-                    window.statusBarColor = getColor(R.color.primary)
-                }
-                else -> {
-                    window.statusBarColor = getColor(R.color.primary)
-                }
-            }
-            true
-        }
     }
 }
