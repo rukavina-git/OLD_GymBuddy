@@ -3,11 +3,12 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id ("org.jetbrains.compose")
 }
 
 android {
     namespace = "com.rukavina.exercise"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 28
@@ -43,6 +44,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation ("androidx.compose.ui:ui:1.5.0")
+    implementation ("androidx.compose.material:material:1.5.0")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.5.0")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.fragment:fragment-ktx:1.6.1")
     testImplementation("junit:junit:4.13.2")

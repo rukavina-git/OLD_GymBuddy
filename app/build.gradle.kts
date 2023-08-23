@@ -3,19 +3,20 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id ("org.jetbrains.compose")
 }
 
 android {
     namespace = "com.rukavina.gymbuddy"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.rukavina.gymbuddy"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        compileSdkPreview = "UpsideDownCakePrivacySandbox"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -58,6 +59,9 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation ("androidx.compose.ui:ui:1.5.0")
+    implementation ("androidx.compose.material:material:1.5.0")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.5.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
