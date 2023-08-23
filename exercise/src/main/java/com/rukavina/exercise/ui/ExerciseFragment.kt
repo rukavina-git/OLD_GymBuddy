@@ -1,4 +1,4 @@
-package com.rukavina.exercise
+package com.rukavina.exercise.ui
 
 import android.os.Bundle
 import androidx.compose.foundation.layout.fillMaxSize
