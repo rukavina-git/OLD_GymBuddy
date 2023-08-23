@@ -41,5 +41,13 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        exerciseViewModel.addExercise(Exercise(1, "squat", "legs", "none"))
+        exerciseViewModel.addExercise(Exercise(2, "deadlift", "back", "good for back and legs"))
+        exerciseViewModel.addExercise(Exercise(3, "bench", "legs", "none"))
+        exerciseViewModel.addExercise(Exercise(4, "running", "cardio", "none"))
+        exerciseViewModel.addExercise(Exercise(5, "leg press", "legs", "none"))
+
+        //Log.d("TESTING_DATA", exerciseViewModel.exerciseList.value!![0].name)
+
     }
 }
