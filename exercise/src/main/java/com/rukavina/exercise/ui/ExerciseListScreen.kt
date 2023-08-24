@@ -29,7 +29,9 @@ fun ExerciseListScreen(exercises: List<Exercise>) {
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp) // Use contentPadding parameter
         ) {
             items(exercises) { exercise ->
-                ExerciseListItem(exercise)
+                ExerciseCard(exercise){
+                    // Empty lambda with no implementation
+                }
             }
         }
     }
