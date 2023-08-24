@@ -16,4 +16,8 @@
     <color name="orange">#E67E22</color>
     //Teal can be used for secondary elements like less important buttons or dividers.
     <color name="teal">#1ABC9C</color>
+    //Use this for card background etc.
+    <color name="very_light_blue_background">#D1F4FF</color>
+    //Use this for text on light background. This is easier on eyes then pure black.
+    <color name="dark_text">#020926</color>
 </resources>
