@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_outline_home_24"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_progress"
-        android:icon="@drawable/baseline_data_thresholding_24"
+        android:icon="@drawable/ic_outline_trending_up_24"
         android:title="@string/title_progress" />
 
     <item
         android:id="@+id/navigation_workout"
-        android:icon="@drawable/baseline_format_list_numbered_24"
+        android:icon="@drawable/outline_format_list_numbered_24"
         android:title="@string/title_workout" />
 
     <item
         android:id="@+id/navigation_exercise"
-        android:icon="@drawable/baseline_directions_run_24"
+        android:icon="@drawable/outline_fitness_center_24"
         android:title="@string/title_exercise" />
 
 </menu>
