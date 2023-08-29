@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":progress"))
     implementation(project(":workout"))
     implementation(project(":exercise"))
+    implementation(project(":common"))
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")

@@ -15,6 +15,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Gym Buddy"
 include(":app")
+include(":common")
 include(":workout")
 include(":exercise")
 include(":progress")
