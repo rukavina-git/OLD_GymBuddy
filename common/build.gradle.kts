@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.rukavina.exercise"
+    namespace = "com.rukavina.common"
     compileSdk = 34
 
     defaultConfig {
@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":app"))
+    //implementation(project(":app"))
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
