@@ -31,15 +31,15 @@ fun ExerciseCard(exercise: Exercise, onItemClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(18.dp)
+            .padding(20.dp)
             .clickable(onClick = onItemClick)
             .background(
                 color = Color.Orange,
-                shape = RoundedCornerShape(18.dp) // Set rounded corners for the outer Box
+                shape = RoundedCornerShape(20.dp) // Set rounded corners for the outer Box
             )
     ) {
         Card(
-            shape = RoundedCornerShape(18.dp), // Set rounded corners for the Card
+            shape = RoundedCornerShape(17.dp), // Set rounded corners for the Card
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 10.dp
             ),
@@ -47,7 +47,7 @@ fun ExerciseCard(exercise: Exercise, onItemClick: () -> Unit) {
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(15.dp),
+                    .padding(18.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -110,7 +110,7 @@ fun PreviewExerciseList() {
         Exercise(1, "Exercise 1", "Chest", "Chest exercise description"),
         Exercise(2, "Exercise 2", "Back", "Back exercise description"),
         Exercise(3, "Exercise 3", "Legs", "Legs exercise description"),
-        Exercise(4, "Exercise 4", "Shoulders", "Shoulders exercise description")
+        Exercise(4, "Exercise 4", "Shoulders", "Shoulders exercise description"),
     )
     ExerciseList(exercises = sampleExercises)
 }
