@@ -31,15 +31,15 @@ fun ExerciseCard(exercise: Exercise, onItemClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(18.dp)
             .clickable(onClick = onItemClick)
             .background(
-                color = Color.Red,
-                shape = RoundedCornerShape(16.dp) // Set rounded corners for the outer Box
+                color = Color.Orange,
+                shape = RoundedCornerShape(18.dp) // Set rounded corners for the outer Box
             )
     ) {
         Card(
-            shape = RoundedCornerShape(16.dp), // Set rounded corners for the Card
+            shape = RoundedCornerShape(18.dp), // Set rounded corners for the Card
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 10.dp
             ),
@@ -47,7 +47,7 @@ fun ExerciseCard(exercise: Exercise, onItemClick: () -> Unit) {
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
+                    .padding(15.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -58,7 +58,7 @@ fun ExerciseCard(exercise: Exercise, onItemClick: () -> Unit) {
                     Text(
                         text = exercise.name,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
+                        fontSize = 20.sp,
                         color = Color.Black,
                         modifier = Modifier.padding(end = 8.dp)
                     )
@@ -74,11 +74,11 @@ fun ExerciseCard(exercise: Exercise, onItemClick: () -> Unit) {
                     imageVector = Icons.Default.Info,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(25.dp)
                         .background(NavyBlue)
                         .clip(CircleShape)
                         .clickable(onClick = onItemClick),
-                    tint = Color.White
+                    tint = Color.Gray
                 )
             }
         }
@@ -109,7 +109,8 @@ fun PreviewExerciseList() {
     val sampleExercises = listOf(
         Exercise(1, "Exercise 1", "Chest", "Chest exercise description"),
         Exercise(2, "Exercise 2", "Back", "Back exercise description"),
-        Exercise(3, "Exercise 3", "Legs", "Legs exercise description")
+        Exercise(3, "Exercise 3", "Legs", "Legs exercise description"),
+        Exercise(4, "Exercise 4", "Shoulders", "Shoulders exercise description")
     )
     ExerciseList(exercises = sampleExercises)
 }
