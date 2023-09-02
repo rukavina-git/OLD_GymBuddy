@@ -16,12 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.rukavina.exercise.R
 import com.rukavina.exercise.model.entities.Exercise
 import com.rukavina.exercise.ui.theme.NavyBlue
 
@@ -34,15 +32,15 @@ fun ExerciseCard(exercise: Exercise, onItemClick: () -> Unit) {
             .padding(20.dp)
             .clickable(onClick = onItemClick)
             .background(
-                color = Color.Orange,
+                color = Color.Yellow,
                 shape = RoundedCornerShape(20.dp) // Set rounded corners for the outer Box
             )
     ) {
         Card(
-            shape = RoundedCornerShape(17.dp), // Set rounded corners for the Card
+            shape = RoundedCornerShape(18.dp), // Set rounded corners for the Card
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 10.dp
-            ),
+            )
         ) {
             Row(
                 modifier = Modifier
@@ -74,11 +72,11 @@ fun ExerciseCard(exercise: Exercise, onItemClick: () -> Unit) {
                     imageVector = Icons.Default.Info,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(25.dp)
+                        .size(32.dp)
                         .background(NavyBlue)
                         .clip(CircleShape)
                         .clickable(onClick = onItemClick),
-                    tint = Color.Gray
+                    tint = Color.White
                 )
             }
         }
