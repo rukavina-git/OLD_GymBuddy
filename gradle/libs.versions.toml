@@ -1,7 +1,32 @@
 [versions]
-accessibilityTestFramework = "4.0.0"
-activityCompose = "1.7.2"
-androidGradlePlugin = "8.0.2"
+coreKtx = "1.10.1"
 appcompat = "1.6.1"
-# @keep
-compileSdk = "33"
+material = "1.8.0"
+constraintLayout = "2.1.4"
+lifecycleKtx = "2.6.1"
+navigationKtx = "2.5.3"
+daggerHilt = "2.44"
+daggerHiltCompiler = "2.44"
+composeUi = "1.5.0"
+composeMaterial = "1.5.0"
+composeLiveData = "1.5.0"
+junit = "4.13.2"
+testExtJunit = "1.1.5"
+espressoCore = "3.5.1"
+
+[libraries]
+androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidxAppCompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidxMaterial = { module = "com.google.android.material:material", version.ref = "material" }
+constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
+lifecycleKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleKtx" }
+navigationKtx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationKtx" }
+daggerHilt = { module = "com.google.dagger:hilt-android", version.ref = "daggerHilt" }
+composeUi = { module = "androidx.compose.ui:ui", version.ref = "composeUi" }
+composeMaterial = { module = "androidx.compose.material:material", version.ref = "composeMaterial" }
+composeLiveData = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "composeLiveData" }
+junit = { module = "junit:junit", version.ref = "junit" }
+testExtJunit = { module = "androidx.test.ext:junit", version.ref = "testExtJunit" }
+espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+daggerHiltCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "daggerHiltCompiler" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version = "2.7.1" }
