@@ -5,6 +5,9 @@ appcompat = "1.6.1"
 compileSdk = "34"
 constraintLayout = "2.1.4"
 coreKtx = "1.10.1"
+composeUi = "1.5.0"
+composeMaterial = "1.5.0"
+composeLiveData = "1.5.0"
 daggerHilt = "2.44"
 daggerHiltCompiler = "2.44"
 espressoCore = "3.5.1"
@@ -25,12 +28,14 @@ androidxAppCompat = { module = "androidx.appcompat:appcompat", version.ref = "ap
 androidxMaterial = { module = "com.google.android.material:material", version.ref = "material" }
 composeLiveData = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "composeLiveData" }
 composeMaterial = { module = "androidx.compose.material:material", version.ref = "composeMaterial" }
+constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "composeUi" }
 daggerHilt = { module = "com.google.dagger:hilt-android", version.ref = "daggerHilt" }
 daggerHiltCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "daggerHiltCompiler" }
 espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 junit = { module = "junit:junit", version.ref = "junit" }
+testExtJunit = { module = "androidx.test.ext:junit", version.ref = "testExtJunit" }
 lifecycleKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleKtx" }
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleKtx" }
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version = "2.7.1" }
