@@ -35,8 +35,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
-
     implementation(libs.androidxCoreKtx)
     implementation(libs.lifecycleKtx)
     implementation(libs.activity.compose)
