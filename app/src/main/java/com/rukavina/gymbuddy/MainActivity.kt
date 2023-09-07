@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.FirebaseApp
 import com.rukavina.exercise.model.entities.Exercise
 import com.rukavina.exercise.ui.ExerciseViewModel
 import com.rukavina.gymbuddy.databinding.ActivityMainBinding
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Initialize Firebase
+        FirebaseApp.initializeApp(this);
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
