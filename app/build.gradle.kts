@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.compose")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -56,6 +57,8 @@ dependencies {
     implementation(libs.composeUi)
     implementation(libs.composeMaterial)
     implementation(libs.composeLiveData)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
     testImplementation(libs.junit)
     androidTestImplementation(libs.testExtJunit)
     androidTestImplementation(libs.espressoCore)
