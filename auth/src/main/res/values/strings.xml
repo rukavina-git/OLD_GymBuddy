@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">auth</string>
+    <string name="welcome_auth">Welcome to Gym Buddy</string>
 </resources>
