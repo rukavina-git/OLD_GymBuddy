@@ -43,3 +43,4 @@ navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx",
 navigationKtx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationKtx" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx"}
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx" }
