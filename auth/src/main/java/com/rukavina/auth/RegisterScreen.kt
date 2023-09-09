@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun RegistrationPage(
+fun RegistrationScreen(
     onSignUpClick: () -> Unit,
     onLoginClick: () -> Unit
 ) {
@@ -130,8 +130,8 @@ fun RegistrationPage(
 
 @Preview
 @Composable
-fun RegistrationPagePreview() {
-    RegistrationPage(
+fun RegistrationScreenPreview() {
+    RegistrationScreen(
         onSignUpClick = {},
         onLoginClick = {}
     )

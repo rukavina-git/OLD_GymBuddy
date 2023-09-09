@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun LoginPage(
+fun LoginScreen(
     onLoginClick: () -> Unit,
     onSignUpClick: () -> Unit
 ) {
@@ -106,8 +106,8 @@ fun LoginPage(
 
 @Preview
 @Composable
-fun LoginPagePreview() {
-    LoginPage(
+fun LoginScreenPreview() {
+    LoginScreen(
         onLoginClick = {},
         onSignUpClick = {}
     )
