@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.composeMaterial)
     implementation(libs.composeLiveData)
     implementation("androidx.compose.material3:material3")
+    implementation (libs.material.icons.extended)
     implementation(libs.fragment.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.testExtJunit)
