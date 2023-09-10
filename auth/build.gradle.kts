@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidxMaterial)
     implementation(libs.composeMaterial)
     implementation(libs.composeLiveData)
+    implementation(libs.navigation.compose)
     implementation("androidx.compose.material3:material3")
     implementation (libs.material.icons.extended)
     implementation(libs.fragment.ktx)

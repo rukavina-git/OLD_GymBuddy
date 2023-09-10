@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":progress"))
     implementation(project(":workout"))
     implementation(project(":exercise"))
+    implementation(project(":auth"))
     implementation(project(":common"))
 
     implementation(libs.androidxCoreKtx)
