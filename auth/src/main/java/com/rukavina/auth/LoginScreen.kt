@@ -79,7 +79,7 @@ fun LoginScreen(
                 .padding(8.dp)
                 .focusRequester(emailFocusRequester),
             singleLine = true,
-            placeholder = { Text(text = "Email/Username") },
+            placeholder = { Text(text = "Email") },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next
             ),
