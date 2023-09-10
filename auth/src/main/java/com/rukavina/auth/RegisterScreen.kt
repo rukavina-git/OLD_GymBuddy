@@ -42,6 +42,7 @@ fun RegistrationScreen(
     var isPasswordVisible by remember { mutableStateOf(false) }
     var isConfirmPasswordVisible by remember { mutableStateOf(false) }
     var isEmailValid by remember { mutableStateOf(true) }
+    var passwordStrengthMessage by remember { mutableStateOf("") }
 
     val emailFocusRequester = remember { FocusRequester() }
     val usernameFocusRequester = remember { FocusRequester() }
@@ -188,6 +189,32 @@ fun RegistrationScreen(
 // @todo extract this
 fun isEmailValid(email: String): Boolean {
     return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+}
+
+fun getPasswordStrengthMessage(password: String): String {
+    // Return a message indicating the strength, e.g., "Weak," "Medium," or "Strong"
+
+    val length = password.length
+    val hasLowerCase = password.any { it.isLowerCase() }
+    val hasUpperCase = password.any { it.isUpperCase() }
+    val hasDigit = password.any { it.isDigit() }
+
+    return when {
+        length < 8 -> "Weak"
+        !hasLowerCase || !hasUpperCase || !hasDigit -> "Medium"
+        else -> "Strong"
+    }
+}
+
+fun getPasswordStrengthColor(strengthMessage: String): Color {
+    // Set the color based on the strength message
+
+    return when (strengthMessage) {
+        "Weak" -> Color.Red
+        "Medium" -> Color.Yellow
+        "Strong" -> Color.Green
+        else -> Color.Black
+    }
 }
 
 @Preview
