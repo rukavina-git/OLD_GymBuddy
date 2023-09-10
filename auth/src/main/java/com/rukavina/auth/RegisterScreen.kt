@@ -30,6 +30,7 @@ import com.rukavina.auth.viewmodels.AuthViewModel
 fun RegistrationScreen(
     onSignUpClick: () -> Unit,
     navController: NavController
+
 ) {
     val TAG = "RegistrationScreen"
     val authViewModel: AuthViewModel = viewModel()
@@ -149,17 +150,22 @@ fun RegistrationScreen(
 
         Button(
             onClick = {
-                // Perform user registration with username
-                authViewModel.registerUser(email, password, username) { isSuccess, _ ->
-                    if (isSuccess) {
-                        // Registration successful
-                        Log.d(TAG, "Registration successful")
-                        // Navigate to home screen
-                    } else {
-                        // Registration failed
-                        Log.d(TAG, "Registration failed")
-                        // Handle the failure, show an error message
+                if (authViewModel.isPasswordStrong(password)) {
+                    // Proceed with Firebase sign-up
+                    authViewModel.registerUser(email, password, username) { isSuccess, _ ->
+                        if (isSuccess) {
+                            // Registration successful
+                            Log.d(TAG, "Registration successful")
+                            // Navigate to home screen
+                        } else {
+                            // Registration failed
+                            Log.d(TAG, "Registration failed")
+                            // Handle the failure, show an error message
+                        }
                     }
+                } else {
+                    // Display an error message to the user
+                    Log.d(TAG, "Password doesn't meet strength requirements")
                 }
             },
             modifier = Modifier.fillMaxWidth(),
