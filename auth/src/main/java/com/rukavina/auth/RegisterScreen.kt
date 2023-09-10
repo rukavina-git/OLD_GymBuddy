@@ -1,5 +1,7 @@
 package com.rukavina.auth
 
+import android.nfc.Tag
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -15,8 +17,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.rukavina.auth.viewmodels.AuthViewModel
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -24,6 +28,9 @@ fun RegistrationScreen(
     onSignUpClick: () -> Unit,
     navController: NavController
 ) {
+    val TAG = "RegistrationScreen"
+    val authViewModel: AuthViewModel = viewModel()
+
     var email by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -113,7 +120,20 @@ fun RegistrationScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { /* Handle registration here */ },
+            onClick = {
+                // Perform user registration with username
+                authViewModel.registerUser(email, password, username) { isSuccess, _ ->
+                    if (isSuccess) {
+                        // Registration successful
+                        Log.d(TAG, "Registration successful")
+                        // Navigate to home screen
+                    } else {
+                        // Registration failed
+                        Log.d(TAG, "Registration failed")
+                        // Handle the failure, show an error message
+                    }
+                }
+            },
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(text = "Sign Up")
