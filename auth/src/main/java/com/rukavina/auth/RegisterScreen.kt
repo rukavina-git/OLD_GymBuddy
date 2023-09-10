@@ -187,13 +187,17 @@ fun RegistrationScreen(
                     ),
                     visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
-                        val passwordToggleIcon = if (isPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                        val passwordToggleIcon =
+                            if (isPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                         IconButton(
                             onClick = { isPasswordVisible = !isPasswordVisible },
                             modifier = Modifier
                                 .padding(end = 8.dp)
                         ) {
-                            Icon(imageVector = passwordToggleIcon, contentDescription = "Toggle Password Visibility")
+                            Icon(
+                                imageVector = passwordToggleIcon,
+                                contentDescription = "Toggle Password Visibility"
+                            )
                         }
                     }
                 )
@@ -238,13 +242,17 @@ fun RegistrationScreen(
                     ),
                     visualTransformation = if (isConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
-                        val passwordToggleIcon = if (isConfirmPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                        val passwordToggleIcon =
+                            if (isConfirmPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                         IconButton(
                             onClick = { isConfirmPasswordVisible = !isConfirmPasswordVisible },
                             modifier = Modifier
                                 .padding(end = 8.dp)
                         ) {
-                            Icon(imageVector = passwordToggleIcon, contentDescription = "Toggle Password Visibility")
+                            Icon(
+                                imageVector = passwordToggleIcon,
+                                contentDescription = "Toggle Password Visibility"
+                            )
                         }
                     }
                 )
