@@ -46,7 +46,10 @@ fun RegistrationScreen(
     var isPasswordVisible by remember { mutableStateOf(false) }
     var isConfirmPasswordVisible by remember { mutableStateOf(false) }
     var isEmailValid by remember { mutableStateOf(true) }
+    var isUsernameValid by remember { mutableStateOf(true) }
     var passwordStrengthMessage by remember { mutableStateOf("") }
+    var doPasswordsMatch by remember { mutableStateOf(true) }
+
 
     val emailFocusRequester = remember { FocusRequester() }
     val usernameFocusRequester = remember { FocusRequester() }
@@ -110,9 +113,22 @@ fun RegistrationScreen(
             }
         }
 
+        if (!isUsernameValid) {
+            Text(
+                text = "Username should be at least 4 characters long and contain only lowercase letters and numbers.",
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier
+                    .padding(start = 8.dp)
+            )
+        }
+
         TextField(
             value = username,
-            onValueChange = { username = it },
+            onValueChange = {
+                username = it
+                isUsernameValid = authViewModel.isUsernameValid(it)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -124,8 +140,11 @@ fun RegistrationScreen(
             ),
             keyboardActions = KeyboardActions(
                 onNext = { passwordFocusRequester.requestFocus() }
-            )
+            ),
+            isError = !isUsernameValid,
+            visualTransformation = VisualTransformation.None,
         )
+
 
         // Password TextField with strength validation
         Box(
@@ -133,15 +152,17 @@ fun RegistrationScreen(
             contentAlignment = Alignment.CenterStart
         ) {
             Column {
-                // Display the password strength message with color
-                Text(
-                    text = passwordStrengthMessage,
-                    color = getPasswordStrengthColor(passwordStrengthMessage),
-                    fontSize = 12.sp,
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                )
-
+                // @todo Display the password strength message with color instead of just displaying error
+                // This will be improved in future
+                if (getPasswordStrengthMessage(password) != "Valid password") {
+                    Text(
+                        text = passwordStrengthMessage,
+                        color = getPasswordStrengthColor(passwordStrengthMessage),
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                    )
+                }
                 TextField(
                     value = password,
                     onValueChange = {
@@ -179,18 +200,56 @@ fun RegistrationScreen(
             }
         }
 
-        PasswordTextField(
-            value = confirmPassword,
-            onValueChange = { confirmPassword = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .focusRequester(confirmPasswordFocusRequester),
-            placeholder = { Text(text = "Confirm Password") },
-            onPasswordToggleClick = { isConfirmPasswordVisible = !isConfirmPasswordVisible },
-            isPasswordVisible = isConfirmPasswordVisible
-        )
+        // Confirm Password TextField with matching logic
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Column {
+                // Display an error message if passwords don't match
+                if (!doPasswordsMatch) {
+                    Text(
+                        text = "Passwords do not match",
+                        color = Color.Red,
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                    )
+                }
 
+                TextField(
+                    value = confirmPassword,
+                    onValueChange = {
+                        confirmPassword = it
+                        doPasswordsMatch = it == password
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                        .border(
+                            width = 1.dp,
+                            color = if (doPasswordsMatch) Color.Gray else Color.Red,
+                            shape = RoundedCornerShape(4.dp)
+                        ),
+                    singleLine = true,
+                    placeholder = { Text(text = "Confirm Password") },
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
+                    visualTransformation = if (isConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    trailingIcon = {
+                        val passwordToggleIcon = if (isConfirmPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                        IconButton(
+                            onClick = { isConfirmPasswordVisible = !isConfirmPasswordVisible },
+                            modifier = Modifier
+                                .padding(end = 8.dp)
+                        ) {
+                            Icon(imageVector = passwordToggleIcon, contentDescription = "Toggle Password Visibility")
+                        }
+                    }
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
@@ -254,8 +313,9 @@ fun getPasswordStrengthColor(strengthMessage: String): Color {
     // Set the color based on the strength message
 
     return when (strengthMessage) {
+        //@todo implement color strength check later on
         "Password must be a minimum of 8 characters and include at least one uppercase letter, one lowercase letter, and one digit." -> Color.Red
-        "Valid password" -> Color.Green
+        "Valid password" -> Color.Black
         else -> Color.Black
     }
 }

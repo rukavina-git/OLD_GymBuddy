@@ -11,6 +11,14 @@ class AuthViewModel : ViewModel() {
         return isStrongPassword(password)
     }
 
+    fun isUsernameValid(username: String): Boolean {
+        return isValidUsername(username)
+    }
+
+    private fun isValidUsername(username: String): Boolean {
+        return username.length >= 4 && username.matches(Regex("^[a-z0-9]+$"))
+    }
+
     private fun isStrongPassword(password: String): Boolean {
         val minLength = 8
         val hasUppercase = Regex("[A-Z]").containsMatchIn(password)
