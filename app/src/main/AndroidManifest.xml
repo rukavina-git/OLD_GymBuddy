@@ -18,8 +18,16 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.rukavina.auth.AuthActivity"
+            android:exported="true"
+            android:label="@string/title_auth">
+            <intent-filter>
+                <action android:name="com.rukavina.auth.AuthActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
