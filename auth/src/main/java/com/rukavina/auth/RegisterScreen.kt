@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,6 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.*
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,7 +35,6 @@ import com.rukavina.auth.viewmodels.AuthViewModel
 fun RegistrationScreen(
     onSignUpClick: () -> Unit,
     navController: NavController
-
 ) {
     val TAG = "RegistrationScreen"
     val authViewModel: AuthViewModel = viewModel()
@@ -123,17 +127,57 @@ fun RegistrationScreen(
             )
         )
 
-        PasswordTextField(
-            value = password,
-            onValueChange = { password = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .focusRequester(passwordFocusRequester),
-            placeholder = { Text(text = "Password") },
-            onPasswordToggleClick = { isPasswordVisible = !isPasswordVisible },
-            isPasswordVisible = isPasswordVisible
-        )
+        // Password TextField with strength validation
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Column {
+                // Display the password strength message with color
+                Text(
+                    text = passwordStrengthMessage,
+                    color = getPasswordStrengthColor(passwordStrengthMessage),
+                    fontSize = 12.sp,
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                )
+
+                TextField(
+                    value = password,
+                    onValueChange = {
+                        password = it
+                        passwordStrengthMessage = getPasswordStrengthMessage(it)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                        .border(
+                            width = 1.dp,
+                            color = getPasswordStrengthColor(passwordStrengthMessage),
+                            shape = RoundedCornerShape(4.dp)
+                        ),
+                    singleLine = true,
+                    placeholder = { Text(text = "Password") },
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = { confirmPasswordFocusRequester.requestFocus() }
+                    ),
+                    visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    trailingIcon = {
+                        val passwordToggleIcon = if (isPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                        IconButton(
+                            onClick = { isPasswordVisible = !isPasswordVisible },
+                            modifier = Modifier
+                                .padding(end = 8.dp)
+                        ) {
+                            Icon(imageVector = passwordToggleIcon, contentDescription = "Toggle Password Visibility")
+                        }
+                    }
+                )
+            }
+        }
 
         PasswordTextField(
             value = confirmPassword,
@@ -185,6 +229,7 @@ fun RegistrationScreen(
     }
 }
 
+
 // Function to check email validity
 // @todo extract this
 fun isEmailValid(email: String): Boolean {
@@ -200,9 +245,8 @@ fun getPasswordStrengthMessage(password: String): String {
     val hasDigit = password.any { it.isDigit() }
 
     return when {
-        length < 8 -> "Weak"
-        !hasLowerCase || !hasUpperCase || !hasDigit -> "Medium"
-        else -> "Strong"
+        length < 8 || !hasLowerCase || !hasUpperCase || !hasDigit -> "Password must be a minimum of 8 characters and include at least one uppercase letter, one lowercase letter, and one digit."
+        else -> "Valid password"
     }
 }
 
@@ -210,9 +254,8 @@ fun getPasswordStrengthColor(strengthMessage: String): Color {
     // Set the color based on the strength message
 
     return when (strengthMessage) {
-        "Weak" -> Color.Red
-        "Medium" -> Color.Yellow
-        "Strong" -> Color.Green
+        "Password must be a minimum of 8 characters and include at least one uppercase letter, one lowercase letter, and one digit." -> Color.Red
+        "Valid password" -> Color.Green
         else -> Color.Black
     }
 }
