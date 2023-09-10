@@ -7,6 +7,23 @@ class AuthViewModel : ViewModel() {
 
     private val auth = FirebaseAuth.getInstance()
 
+    fun isPasswordStrong(password: String): Boolean {
+        return isStrongPassword(password)
+    }
+
+    private fun isStrongPassword(password: String): Boolean {
+        val minLength = 8
+        val hasUppercase = Regex("[A-Z]").containsMatchIn(password)
+        val hasLowercase = Regex("[a-z]").containsMatchIn(password)
+        val hasDigit = Regex("[0-9]").containsMatchIn(password)
+
+        return password.length >= minLength &&
+                hasUppercase &&
+                hasLowercase &&
+                hasDigit
+    }
+
+
     fun registerUser(email: String, password: String, username: String, onComplete: (Boolean, String?) -> Unit) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
