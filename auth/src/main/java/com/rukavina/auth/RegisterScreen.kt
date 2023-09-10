@@ -15,12 +15,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationScreen(
     onSignUpClick: () -> Unit,
-    onLoginClick: () -> Unit
+    navController: NavController
 ) {
     var email by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
@@ -120,7 +122,7 @@ fun RegistrationScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         TextButton(
-            onClick = { onLoginClick() },
+            onClick = { navController.navigate("login") },
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(text = "Already have an account? Log in")
@@ -133,7 +135,6 @@ fun RegistrationScreen(
 fun RegistrationScreenPreview() {
     RegistrationScreen(
         onSignUpClick = {},
-        onLoginClick = {}
+        navController = rememberNavController()
     )
 }
-

@@ -16,12 +16,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     onLoginClick: () -> Unit,
-    onSignUpClick: () -> Unit
+    navController : NavController
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -96,7 +98,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         TextButton(
-            onClick = { onSignUpClick() },
+            onClick = { navController.navigate("register") },
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(text = "Don't have an account? Sign up")
@@ -109,6 +111,6 @@ fun LoginScreen(
 fun LoginScreenPreview() {
     LoginScreen(
         onLoginClick = {},
-        onSignUpClick = {}
+        navController = rememberNavController()
     )
 }
