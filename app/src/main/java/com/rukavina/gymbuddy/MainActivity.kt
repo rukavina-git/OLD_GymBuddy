@@ -1,18 +1,21 @@
 package com.rukavina.gymbuddy
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseApp
+import com.rukavina.auth.AuthActivity
 import com.rukavina.exercise.model.entities.Exercise
 import com.rukavina.exercise.ui.ExerciseViewModel
 import com.rukavina.gymbuddy.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -22,6 +25,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Create an Intent to launch AuthActivity
+        val intent = Intent(this, AuthActivity::class.java)
+        // Start AuthActivity
+        startActivity(intent)
+
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
 
