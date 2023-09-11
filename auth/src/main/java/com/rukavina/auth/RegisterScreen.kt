@@ -271,7 +271,7 @@ fun RegistrationScreen(
                             // Navigate to home screen
                         } else {
                             // Registration failed
-                            Log.d(TAG, "Registration failed")
+                            Log.d(TAG, "Registration failed, did you enter correct data?")
                             // Handle the failure, show an error message
                         }
                     }
