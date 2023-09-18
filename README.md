@@ -40,4 +40,4 @@ The Gym Progress Tracker App is currently under development and not yet availabl
 
 ## Licence
 
-This project IS licenced under the [GNU Affero General Public Licence v3.0 (AGPL-3.0)](LICENCE)
+This project Is licenced under the [GNU Affero General Public Licence v3.0 (AGPL-3.0)](LICENCE)
