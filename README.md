@@ -31,6 +31,8 @@ Once the Gym Progress Tracker App is available, follow these steps to set it up 
 2. Open the project in Android Studio.
 
 3. Build and run the app on an Android emulator or physical device.
+NOTE: To use this project with own firebase backend, you would need to setup firebase and download your own google-services.json
+More info on: https://firebase.google.com/docs/android/setup
 
 ## Usage
 
