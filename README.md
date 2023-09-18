@@ -38,6 +38,6 @@ More info on: https://firebase.google.com/docs/android/setup
 
 The Gym Progress Tracker App is currently under development and not yet available for download. It will be released on the Google Play Store and through direct APK downloads in the future.
 
-## License
+## Licence
 
-This project IS licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENCE)
+This project IS licenced under the [GNU Affero General Public Licence v3.0 (AGPL-3.0)](LICENCE)
