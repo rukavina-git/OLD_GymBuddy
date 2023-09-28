@@ -41,8 +41,7 @@ import com.rukavina.auth.viewmodels.AuthViewModel
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onLoginClick: () -> Unit,
-    navController: NavController
+    onLoginClick: () -> Unit, navController: NavController
 ) {
     val TAG = "LoginScreen"
     val authViewModel: AuthViewModel = viewModel()
@@ -71,8 +70,7 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        TextField(
-            value = email,
+        TextField(value = email,
             onValueChange = { email = it },
             modifier = Modifier
                 .fillMaxWidth()
@@ -83,13 +81,9 @@ fun LoginScreen(
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next
             ),
-            keyboardActions = KeyboardActions(
-                onNext = { emailFocusRequester.requestFocus() }
-            )
-        )
+            keyboardActions = KeyboardActions(onNext = { emailFocusRequester.requestFocus() }))
 
-        TextField(
-            value = password,
+        TextField(value = password,
             onValueChange = { password = it },
             modifier = Modifier
                 .fillMaxWidth()
@@ -98,38 +92,39 @@ fun LoginScreen(
             singleLine = true,
             placeholder = { Text(text = "Password") },
             keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Password
+                imeAction = ImeAction.Done, keyboardType = KeyboardType.Password
             ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    passwordFocusRequester.requestFocus()
-                    keyboardController?.hide()
-                    onLoginClick()
-                }
-            )
-        )
+            keyboardActions = KeyboardActions(onDone = {
+                passwordFocusRequester.requestFocus()
+                keyboardController?.hide()
+                onLoginClick()
+            }))
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = {
-                authViewModel.loginUser(email, password) { isSuccess, error ->
-                    if (isSuccess) {
-                        // Login successful
-                        Log.d(TAG, "Login successful")
-                    } else {
-                        if (error != null && error.contains("no user record")) {
-                            Log.d(TAG, "Login error: no user record")
-                            loginError = true
-                            errorMessage = "Account not found. Please register first."
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    //@todo extract this logic
+                    authViewModel.loginUser(email, password) { isSuccess, error ->
+                        if (isSuccess) {
+                            // Login successful
+                            Log.d(TAG, "Login successful")
                         } else {
-                            // Login errors
-                            Log.d(TAG, "Login error: Please check your credentials.")
-                            loginError = true
-                            errorMessage = "Login failed. Please check your credentials."
+                            if (error != null && error.contains("no user record")) {
+                                Log.d(TAG, "Login error: no user record")
+                                loginError = true
+                                errorMessage = "Account not found. Please register first."
+                            } else {
+                                // Login errors
+                                Log.d(TAG, "Login error: Please check your credentials.")
+                                loginError = true
+                                errorMessage = "Login failed. Please check your credentials."
+                            }
                         }
                     }
+                } else {
+                    Log.d(TAG, "Login error: Email and password cannot be empty.")
                 }
             },
             modifier = Modifier.fillMaxWidth(),
@@ -139,8 +134,7 @@ fun LoginScreen(
 
 // Display error message @todo maybe replace it with snackbar?
         if (loginError) {
-            AlertDialog(
-                onDismissRequest = { loginError = false },
+            AlertDialog(onDismissRequest = { loginError = false },
                 title = { Text("Error") },
                 text = { Text(errorMessage) },
                 confirmButton = {
@@ -149,8 +143,7 @@ fun LoginScreen(
                     ) {
                         Text(text = "OK")
                     }
-                }
-            )
+                })
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -168,7 +161,6 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     LoginScreen(
-        onLoginClick = {},
-        navController = rememberNavController()
+        onLoginClick = {}, navController = rememberNavController()
     )
 }
