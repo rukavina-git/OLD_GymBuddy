@@ -2,22 +2,40 @@ package com.rukavina.auth
 
 import android.util.Log
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.*
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -50,21 +68,18 @@ fun RegistrationScreen(
     var passwordStrengthMessage by remember { mutableStateOf("") }
     var doPasswordsMatch by remember { mutableStateOf(true) }
 
-
-    val emailFocusRequester = remember { FocusRequester() }
-    val usernameFocusRequester = remember { FocusRequester() }
-    val passwordFocusRequester = remember { FocusRequester() }
-    val confirmPasswordFocusRequester = remember { FocusRequester() }
-
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
+
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        val focusManager = LocalFocusManager.current
+
         Text(
             text = stringResource(R.string.welcome_auth),
             style = MaterialTheme.typography.titleMedium,
@@ -107,7 +122,7 @@ fun RegistrationScreen(
                         imeAction = ImeAction.Next
                     ),
                     keyboardActions = KeyboardActions(
-                        onNext = { usernameFocusRequester.requestFocus() }
+                        onNext = { focusManager.moveFocus(FocusDirection.Down) }
                     )
                 )
             }
@@ -131,15 +146,14 @@ fun RegistrationScreen(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
-                .focusRequester(usernameFocusRequester),
+                .padding(8.dp),
             singleLine = true,
             placeholder = { Text(text = "Username") },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next
             ),
             keyboardActions = KeyboardActions(
-                onNext = { passwordFocusRequester.requestFocus() }
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }
             ),
             isError = !isUsernameValid,
             visualTransformation = VisualTransformation.None,
@@ -183,7 +197,7 @@ fun RegistrationScreen(
                         imeAction = ImeAction.Next
                     ),
                     keyboardActions = KeyboardActions(
-                        onNext = { confirmPasswordFocusRequester.requestFocus() }
+                        onNext = { focusManager.moveFocus(FocusDirection.Down) }
                     ),
                     visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     trailingIcon = {
@@ -262,8 +276,7 @@ fun RegistrationScreen(
 
         Button(
             onClick = {
-                if(email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty())
-                {
+                if (email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty()) {
                     if (authViewModel.isPasswordStrong(password)) {
                         // Proceed with Firebase sign-up
                         authViewModel.registerUser(email, password, username) { isSuccess, _ ->
@@ -281,8 +294,7 @@ fun RegistrationScreen(
                         // Display an error message to the user
                         Log.d(TAG, "Password doesn't meet strength requirements")
                     }
-                }
-                else{
+                } else {
                     Log.d(TAG, "Email, username and password cannot be empty.")
                 }
 
