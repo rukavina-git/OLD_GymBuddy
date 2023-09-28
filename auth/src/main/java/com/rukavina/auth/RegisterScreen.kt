@@ -262,23 +262,30 @@ fun RegistrationScreen(
 
         Button(
             onClick = {
-                if (authViewModel.isPasswordStrong(password)) {
-                    // Proceed with Firebase sign-up
-                    authViewModel.registerUser(email, password, username) { isSuccess, _ ->
-                        if (isSuccess) {
-                            // Registration successful
-                            Log.d(TAG, "Registration successful")
-                            // Navigate to home screen
-                        } else {
-                            // Registration failed
-                            Log.d(TAG, "Registration failed, did you enter correct data?")
-                            // Handle the failure, show an error message
+                if(email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty())
+                {
+                    if (authViewModel.isPasswordStrong(password)) {
+                        // Proceed with Firebase sign-up
+                        authViewModel.registerUser(email, password, username) { isSuccess, _ ->
+                            if (isSuccess) {
+                                // Registration successful
+                                Log.d(TAG, "Registration successful")
+                                // Navigate to home screen
+                            } else {
+                                // Registration failed
+                                Log.d(TAG, "Registration failed, did you enter correct data?")
+                                // Handle the failure, show an error message
+                            }
                         }
+                    } else {
+                        // Display an error message to the user
+                        Log.d(TAG, "Password doesn't meet strength requirements")
                     }
-                } else {
-                    // Display an error message to the user
-                    Log.d(TAG, "Password doesn't meet strength requirements")
                 }
+                else{
+                    Log.d(TAG, "Email, username and password cannot be empty.")
+                }
+
             },
             modifier = Modifier.fillMaxWidth(),
         ) {
