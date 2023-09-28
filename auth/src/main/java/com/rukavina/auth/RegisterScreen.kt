@@ -68,10 +68,8 @@ fun RegistrationScreen(
     var passwordStrengthMessage by remember { mutableStateOf("") }
     var doPasswordsMatch by remember { mutableStateOf(true) }
 
-    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
-
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
