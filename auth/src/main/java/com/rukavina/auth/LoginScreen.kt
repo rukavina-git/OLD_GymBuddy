@@ -10,10 +10,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -21,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -39,6 +43,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.rukavina.auth.viewmodels.AuthViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -47,8 +52,6 @@ fun LoginScreen(
 ) {
     val TAG = "LoginScreen"
     val authViewModel: AuthViewModel = viewModel()
-    var loginError by remember { mutableStateOf(false) }
-    var errorMessage by remember { mutableStateOf("") }
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -58,6 +61,8 @@ fun LoginScreen(
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
+    var snackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
+    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -84,11 +89,10 @@ fun LoginScreen(
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next
             ),
-            keyboardActions = KeyboardActions(
-                onNext = { focusManager.moveFocus(FocusDirection.Down) }
-            ))
+            keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }))
 
-        TextField(value = password,
+        TextField(
+            value = password,
             onValueChange = { password = it },
             modifier = Modifier
                 .fillMaxWidth()
@@ -103,7 +107,8 @@ fun LoginScreen(
                 passwordFocusRequester.requestFocus()
                 keyboardController?.hide()
                 onLoginClick()
-            }))
+            })
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -115,21 +120,33 @@ fun LoginScreen(
                         if (isSuccess) {
                             // Login successful
                             Log.d(TAG, "Login successful")
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar("Login successful.")
+                            }
                         } else {
+                            // Account not found.
                             if (error != null && error.contains("no user record")) {
-                                Log.d(TAG, "Login error: no user record")
-                                loginError = true
-                                errorMessage = "Account not found. Please register first."
+                                Log.d(TAG, "Login error. Please check your credentials.")
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar("Login failed. Please check your credentials.")
+                                }
                             } else {
-                                // Login errors
-                                Log.d(TAG, "Login error: Please check your credentials.")
-                                loginError = true
-                                errorMessage = "Login failed. Please check your credentials."
+                                // Other login errors.
+                                Log.d(
+                                    TAG, "Login error: Login failed. Please check your credentials."
+                                )
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar("Login failed. Please check your credentials.")
+                                }
                             }
                         }
                     }
                 } else {
+                    // Empty input
                     Log.d(TAG, "Login error: Email and password cannot be empty.")
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar("Email and password cannot be empty.")
+                    }
                 }
             },
             modifier = Modifier.fillMaxWidth(),
@@ -137,19 +154,6 @@ fun LoginScreen(
             Text(text = "Log In")
         }
 
-// Display error message @todo maybe replace it with snackbar?
-        if (loginError) {
-            AlertDialog(onDismissRequest = { loginError = false },
-                title = { Text("Error") },
-                text = { Text(errorMessage) },
-                confirmButton = {
-                    Button(
-                        onClick = { loginError = false },
-                    ) {
-                        Text(text = "OK")
-                    }
-                })
-        }
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -160,6 +164,19 @@ fun LoginScreen(
             Text(text = "Don't have an account? Sign up")
         }
     }
+
+    SnackbarHost(
+        hostState = snackbarHostState, modifier = Modifier.padding(16.dp)
+    ) { snackbarData ->
+        Surface(
+            modifier = Modifier.padding(8.dp),
+            shape = MaterialTheme.shapes.large,
+        ) {
+            Snackbar(snackbarData = snackbarData)
+        }
+    }
+
+
 }
 
 @Preview
