@@ -30,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
@@ -50,7 +49,7 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     onLoginClick: () -> Unit, navController: NavController
 ) {
-    val TAG = "LoginScreen"
+    val tag = "LoginScreen"
     val authViewModel: AuthViewModel = viewModel()
 
     var email by remember { mutableStateOf("") }
@@ -58,11 +57,11 @@ fun LoginScreen(
 
     val emailFocusRequester = remember { FocusRequester() }
     val passwordFocusRequester = remember { FocusRequester() }
-
     val keyboardController = LocalSoftwareKeyboardController.current
 
     var snackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
     val coroutineScope = rememberCoroutineScope()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -120,21 +119,21 @@ fun LoginScreen(
                     authViewModel.loginUser(email, password) { isSuccess, error ->
                         if (isSuccess) {
                             // Login successful
-                            Log.d(TAG, "Login successful")
+                            Log.d(tag, "Login successful")
                             coroutineScope.launch {
                                 snackbarHostState.showSnackbar("Login successful.")
                             }
                         } else {
-                            // Account not found.
+                            // Account not found
                             if (error != null && error.contains("no user record")) {
-                                Log.d(TAG, "Login error. Please check your credentials.")
+                                Log.d(tag, "Login error. Please check your credentials.")
                                 coroutineScope.launch {
                                     snackbarHostState.showSnackbar("Login failed. Please check your credentials.")
                                 }
                             } else {
-                                // Other login errors.
+                                // Other login errors
                                 Log.d(
-                                    TAG, "Login error: Login failed. Please check your credentials."
+                                    tag, "Login error: Login failed. Please check your credentials."
                                 )
                                 coroutineScope.launch {
                                     snackbarHostState.showSnackbar("Login failed. Please check your credentials.")
@@ -144,7 +143,7 @@ fun LoginScreen(
                     }
                 } else {
                     // Empty input
-                    Log.d(TAG, "Login error: Email and password cannot be empty.")
+                    Log.d(tag, "Login error: Email and password cannot be empty.")
                     coroutineScope.launch {
                         snackbarHostState.showSnackbar("Email and password cannot be empty.")
                     }

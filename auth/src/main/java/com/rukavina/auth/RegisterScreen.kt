@@ -21,6 +21,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -28,14 +30,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -47,14 +48,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.rukavina.auth.viewmodels.AuthViewModel
+import com.rukavina.common.ui.AppSnackbar
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationScreen(
     onSignUpClick: () -> Unit,
     navController: NavController
 ) {
-    val TAG = "RegistrationScreen"
+    val tag = "RegistrationScreen"
     val authViewModel: AuthViewModel = viewModel()
 
     var email by remember { mutableStateOf("") }
@@ -68,6 +71,8 @@ fun RegistrationScreen(
     var passwordStrengthMessage by remember { mutableStateOf("") }
     var doPasswordsMatch by remember { mutableStateOf(true) }
 
+    var snackbarHostState by remember { mutableStateOf(SnackbarHostState()) }
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -276,24 +281,47 @@ fun RegistrationScreen(
             onClick = {
                 if (email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty()) {
                     if (authViewModel.isPasswordStrong(password)) {
-                        // Proceed with Firebase sign-up
-                        authViewModel.registerUser(email, password, username) { isSuccess, _ ->
-                            if (isSuccess) {
-                                // Registration successful
-                                Log.d(TAG, "Registration successful")
-                                // Navigate to home screen
-                            } else {
-                                // Registration failed
-                                Log.d(TAG, "Registration failed, did you enter correct data?")
-                                // Handle the failure, show an error message
+                        if(password == confirmPassword)
+                        {
+                            // Proceed with Firebase sign-up
+                            authViewModel.registerUser(email, password, username) { isSuccess, _ ->
+                                if (isSuccess) {
+                                    // Registration successful
+                                    Log.d(tag, "Registration successful.")
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar("Registration successful.")
+                                    }
+                                    // @todo Navigate to home screen, or confirm mail?
+                                } else {
+                                    // Registration failed
+                                    Log.d(tag, "Registration error: Sorry, there was an issue with your registration. Please review your input and ensure it meets the required format and criteria.")
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar("Sorry, there was an issue with your registration. Please review your input and ensure it meets the required format and criteria.")
+                                    }
+                                }
                             }
                         }
+                        else{
+                            // The password and confirm password do not match.
+                            Log.d(tag, "Registration error: The password and confirm password do not match.")
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar("The password and confirm password do not match.")
+                            }
+                        }
+
                     } else {
-                        // Display an error message to the user
-                        Log.d(TAG, "Password doesn't meet strength requirements")
+                        // Password doesn't meet strength requirements
+                        Log.d(tag, "Registration error: Password doesn't meet strength requirements.")
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar("Password doesn't meet strength requirements.")
+                        }
                     }
                 } else {
-                    Log.d(TAG, "Email, username and password cannot be empty.")
+                    // Empty input
+                    Log.d(tag, "Email, username and password cannot be empty.")
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar("Email, username and password cannot be empty.")
+                    }
                 }
 
             },
@@ -310,6 +338,13 @@ fun RegistrationScreen(
         ) {
             Text(text = "Already have an account? Log in")
         }
+    }
+
+    AppSnackbar(
+        snackbarHostState = snackbarHostState,
+        modifier = Modifier.padding(16.dp),
+    ) { snackbarData ->
+        Snackbar(snackbarData = snackbarData)
     }
 }
 
