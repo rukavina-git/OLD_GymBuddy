@@ -14,9 +14,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -32,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
@@ -43,6 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.rukavina.auth.viewmodels.AuthViewModel
+import com.rukavina.common.ui.AppSnackbar
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
@@ -89,7 +89,8 @@ fun LoginScreen(
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next
             ),
-            keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }))
+            keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) })
+        )
 
         TextField(
             value = password,
@@ -165,15 +166,11 @@ fun LoginScreen(
         }
     }
 
-    SnackbarHost(
-        hostState = snackbarHostState, modifier = Modifier.padding(16.dp)
+    AppSnackbar(
+        snackbarHostState = snackbarHostState,
+        modifier = Modifier.padding(16.dp),
     ) { snackbarData ->
-        Surface(
-            modifier = Modifier.padding(8.dp),
-            shape = MaterialTheme.shapes.large,
-        ) {
-            Snackbar(snackbarData = snackbarData)
-        }
+        Snackbar(snackbarData = snackbarData)
     }
 
 
