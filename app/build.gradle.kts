@@ -46,6 +46,7 @@ dependencies {
     implementation(project(":auth"))
     implementation(project(":common"))
 
+    implementation (libs.navigation.compose)
     implementation(libs.androidxCoreKtx)
     implementation(libs.androidxAppCompat)
     implementation(libs.androidxMaterial)
