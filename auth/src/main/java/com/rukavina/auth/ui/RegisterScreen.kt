@@ -1,4 +1,4 @@
-package com.rukavina.auth
+package com.rukavina.auth.ui
 
 import android.util.Log
 import androidx.compose.foundation.border
@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.rukavina.auth.R
 import com.rukavina.auth.viewmodels.AuthViewModel
 import com.rukavina.common.ui.AppSnackbar
 import kotlinx.coroutines.launch

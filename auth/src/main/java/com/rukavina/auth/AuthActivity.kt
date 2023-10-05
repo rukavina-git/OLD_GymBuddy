@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.rukavina.auth.ui.LoginScreen
+import com.rukavina.auth.ui.RegistrationScreen
 import com.rukavina.auth.ui.theme.GymBuddyTheme
 import dagger.hilt.android.AndroidEntryPoint
 

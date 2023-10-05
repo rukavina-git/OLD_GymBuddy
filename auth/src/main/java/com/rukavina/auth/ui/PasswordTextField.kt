@@ -1,4 +1,4 @@
-package com.rukavina.auth
+package com.rukavina.auth.ui
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
@@ -16,6 +16,7 @@ import androidx.compose.ui.text.*
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import com.rukavina.auth.R
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
