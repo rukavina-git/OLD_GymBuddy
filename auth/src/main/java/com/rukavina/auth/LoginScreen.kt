@@ -113,6 +113,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
+            // @todo check for email format maybe?
             onClick = {
                 if (email.isNotEmpty() && password.isNotEmpty()) {
                     //@todo extract this logic
