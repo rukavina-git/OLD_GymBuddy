@@ -56,6 +56,8 @@ dependencies {
     implementation(libs.navigation.ui.ktx)
     implementation(libs.daggerHilt)
     kapt(libs.daggerHiltCompiler)
+    implementation ("androidx.navigation:navigation-compose:2.7.4")
+    implementation ("androidx.activity:activity-compose:1.8.0")
     implementation(libs.composeUi)
     implementation(libs.composeMaterial)
     implementation(libs.composeLiveData)
